@@ -15,13 +15,21 @@ export default function Home() {
   }
 
   return (
-    <main className="m-auto w-full md:w-[80%] flex flex-col items-center">
-      <input type="text" onChange={filterItems} className="m-4 w-[40%] md:w-[20%] bg-amber-50 text-black"/>
-      <table className="m-auto bg-red-900 w-full md:w-175">
+    <main className="w-full flex flex-col gap-6">
+      <div className="flex items-center justify-between gap-3">
+        <input
+          type="text"
+          onChange={filterItems}
+          placeholder="Search menu items…"
+          className="w-full max-w-md rounded-lg border border-(--border) bg-(--muted)/60 text-foreground placeholder:text-zinc-400 px-4 py-2 outline-none focus:border-(--accent) focus:ring-2 focus:ring-(--accent)/30 transition"
+        />
+      </div>
+      <div className="rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] border border-(--border) bg-(--card)">
+        <table className="w-full">
         <thead>
           <tr>
-            <th>Food Item</th>
-            <th>Alergens</th>
+              <th>Food Item</th>
+              <th>Allergens</th>
           </tr>
         </thead>
         <tbody>
@@ -29,7 +37,8 @@ export default function Home() {
             <ItemRow key={index} {...item} />
           ))}
         </tbody>
-      </table>
+        </table>
+      </div>
     </main>
   );
 }

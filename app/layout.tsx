@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import logo from "@/public/logo-2.png";
+import Image from "next/image";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,9 +26,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <h1 className="m-auto text-center text-xl">Menu Item Guide :)</h1>
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
+        <header className="sticky top-0 z-50 backdrop-blur bg-black border-b border-(--border)">
+          <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
+            <h1 className="text-2xl font-semibold tracking-tight">Allergy Guide</h1>
+            <div className="flex items-center gap-3">
+              {/* <span className="inline-flex h-2 w-2 rounded-full bg-(--accent) shadow-[0_0_12px_rgba(220,38,38,0.8)]"></span> */}
+              <Image src={logo} alt="STK Logo" className="w-20 h-20" />
+            </div>
+          </div>
+          <div className="h-1 bg-(--accent)/80"></div>
+        </header>
+        <div className="max-w-5xl mx-auto px-4 py-8">
+          {children}
+        </div>
       </body>
     </html>
   );
