@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <main className="m-auto w-full md:w-[80%] flex flex-col items-center">
       <input type="text" onChange={filterItems} className="m-4 w-[40%] md:w-[20%] bg-amber-50 text-black"/>
-      <table className="m-auto bg-red-900 w-175">
+      <table className="m-auto bg-red-900 w-full md:w-175">
         <thead>
           <tr>
             <th>Food Item</th>
