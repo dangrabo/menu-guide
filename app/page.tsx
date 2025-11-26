@@ -11,13 +11,13 @@ export default function Home() {
 
   function filterItems(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.currentTarget.value;
-    setFilteredItems(allItems.filter(item => (item.name.includes(value) || item.name.toLocaleLowerCase().includes(value))))
+    setFilteredItems(allItems.filter(item => (item.name.toLowerCase().includes(value.toLowerCase()))))
   }
 
   return (
     <main className="m-auto w-full md:w-[80%] flex flex-col items-center">
-      <input type="text" onChange={filterItems} className="m-4 w-[30%] bg-amber-50 text-black"/>
-      <table className="m-auto bg-red-900 w-full">
+      <input type="text" onChange={filterItems} className="m-4 w-[40%] md:w-[20%] bg-amber-50 text-black"/>
+      <table className="m-auto bg-red-900 w-175">
         <thead>
           <tr>
             <th>Food Item</th>
