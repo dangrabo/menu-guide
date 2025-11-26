@@ -52,7 +52,7 @@ th, td {
 }
 
 thead th {
-  background: linear-gradient(180deg, rgba(220,38,38,0.18), rgba(220,38,38,0.10));
+  background: rgba(220, 38, 38, 0.216);
   color: var(--foreground);
   text-align: left;
   font-weight: 600;
@@ -63,5 +63,5 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:hover {
-  background: rgba(220,38,38,0.15);
+  background: rgba(220, 38, 38, 0.216);
 }

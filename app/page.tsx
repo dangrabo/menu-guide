@@ -4,14 +4,15 @@ import { items } from "@/data/items";
 import ItemRow from './components/ItemRow';
 import { useState } from 'react';
 
+type MenuItem = (typeof items)['items'][number];
 const allItems = items.items;
 
 export default function Home() {
-  const [filteredItems, setFilteredItems] = useState(allItems);
+  const [filteredItems, setFilteredItems] = useState<MenuItem[]>(Array.from(allItems));
 
   function filterItems(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.currentTarget.value;
-    setFilteredItems(allItems.filter(item => (item.name.toLowerCase().includes(value.toLowerCase()))))
+    setFilteredItems(Array.from(allItems).filter(item => (item.name.toLowerCase().includes(value.toLowerCase()))))
   }
 
   return (
@@ -39,6 +40,9 @@ export default function Home() {
         </tbody>
         </table>
       </div>
+      <p className="text-xs text-zinc-400 mt-2">
+        FryerCC: X = (dairy, egg, gluten, fish, allium)
+      </p>
     </main>
   );
 }

@@ -1,220 +1,650 @@
-/* Generated from data/allergy.csv: exports a flat-string allergen map per item. */
-
-type AllergenKey =
-  | "dairy"
-  | "egg"
-  | "gluten"
-  | "fish"
-  | "shellfish"
-  | "mollusk"
-  | "treeNuts"
-  | "peanuts"
-  | "soy"
-  | "sesame"
-  | "pork"
-  | "allium"
-  | "fryerCC";
-
-export interface MenuItem {
-  name: string;
-  allergens: Partial<Record<AllergenKey, string>>;
-}
-
-export interface ItemsExport {
-  items: MenuItem[];
-}
-
-const csv = `Column1,Column2,Column3,Column4,Column5,Column6,Column7,Column8,Column9,Column10,Column11,Column12,Column13,Column14
-"STK Dinner Menu Item
-X=Contains O=Removable
-CC=Cross Contamination","FRYER CROSS
-CONTAMINATION
-(dairy, egg, gluten,
-fish, allium)",DAIRY,EGG,GLUTEN,FISH,SHELLFISH,MOLLUSK,TREE NUTS,PEANUTS,SOY,SESAME,Pork,Allium(Garlic/Onion)
-House Bread Full Setup,,O - butter,,X,,,,,,X,,,O - blue butter/ chive oil
-Salad:,,,,,,,,,,,,,
-Baby Gem Caesar,,O - parmesan / dressing,O - dressing,O - croutons,O - dressing,,,,,,,,O - dressing/ chives
-Blue Iceberg,,O - dressing / blue cheese,O - dressing,O - dressing,O - dressing,,,,,O - dressing,O - dressing,O - bacon,O - dressing/ chives
-Burrata,,X,,O - croutons,,,,,,,,,O
-Apps:,,,,,,,,,,,,,
-Tuna Tartare,taro chips,,,O - soy emulsion,X,,,,,O - soy emulsion,,,
-Fried Calamari,X,X,O - garlic aioli,X,,X,X,,,,,,O
-Lil' Brgs,"","O - cheese, bun",O - special sauce,O - bun,,,,,,,O - bun,,"O - carm. onion, special sauce"
-Jumbo Lump Crab Cake,,X,X,X,,X,,,,,O - cucumber salad,,X
-Maple Bacon,,X,O - slaw,,,,,,,,,X,X
-Cheesesteak Eggrolls,,X,o - sweet pickle fry sauce / mustard ranch,X,o - sweet pickle fry sauce,,,,,,,,X
-Raw Bar:,,,,,,,,,,,,,
-Red King Crab,,,O - dijonaise,,,X,,,,,,,
-Jalapeno Pickled Shrimp Cocktail,,,,O - cocktail sauce,O - cocktail sauce,X,,,,O - cocktail sauce,,,X
-Ceviche,Daily Feature,,,,,,,,,,,,
-STK Pearls,,,,O - cocktail sauce,X,X,X,,,O - cocktail sauce,,,O - cocktail sauce / mignonette
-Oysters,,,,O - cocktail sauce,O - cocktail sauce,X,X,,,O - cocktail sauce,,,O - cocktail sauce / mignonette
-Imperia Kaluga Reserve,,,O - egg,O - blinis,X,,,,,,,,O - chives / shallots
-SHELLFISH PLATTER,,O - dungeness crab salad,O - dijonaise / crab salad,O - cocktail sauce,X,X,X,,,O - cocktail sauce,,,O - mignonette / marinated clams
-Calamari / Mussels,,,,,,X,X,,,,,,X
-Clams,,,,,,X,X,,,,,,X
-Ceviche,,,,,X,,,,,,,,X
-Lobster Portion (COLD),,,,,,X,,,,,,,
-Pickled Shrimp,,,,,,X,,,,,,,X
-Crab Salad,,X,X,,,X,,,,,,,
-Oysters,,,,,,X,X,,,,,,
-Sides:,,,,,,,,,,,,,
-Parmesan Truffle Fries,X,O - parmesan cheese,O - fry sauce,X,,,,,,X,,O - Fry Sauce,O - chives
-Creamed Spinach,shallots,X,,X,,,,,,,,,X
-Yukon Mashed Potatoes,,X,,O - parmesan crust,,,,,,,,,
-Market Vegetables,Daily Feature,,,,,,,,,,,,
-Tater Tots,X,X,O - Chili Remoulade,,,,,,,,,,O - chives
-Sweet Corn Pudding,,X,,,,,,,,,,,O - chives
-Brussels Sprouts,X,,,,,,,,,,,X,O - bacon glaze
-Confit Mushrooms,,O - cheese,,,,,,,,,,X,X
-Mac And Cheese,,X,X,X,,,,,,,,,X
-Bacon Mac And Cheese,,X,X,X,,,,,,,,X,X
-Lobster Mac And Cheese,,X,X,X,,X,,,,,,,X
-Asparagus,,,,,,,,,,,,,
-Mushroom Pot Pie,,X,X,X,,,,,,X,,,X
-Potato Gratin,,X,,X,,,,,,,,,X
-Mains:,,,,,,,,,,,,,
-Maple Rubbed Salmon,,,,,X,,,,,,,,O - maple glaze / olive tapenade
-Free Range Chicken,,O - vegetables / mustard sauce,,,,,,,,,,,O - seasonal vegetable
-Braised Beef Short Rib,shallots,O - mashed potatoes,,O - crispy shallots,,,,,,,,,X
-Fish and Chips,x,,O - tartar / coleslaw,X,X,,,,,,,,
-Lobster Linguine,,X,X,X,,X,,,,,,,X
-Mushroom Tagliatelle,,X,X,X,,,,,,,,,X
-Miso Glazed Sea Bass,crispy shallots,O - crispy shallots,,X,X,,,,,X,O - togarashi,,O - crispy shallots
-Roasted Lamb Rack,,O - butter,,,,,,,,,,,X
-Toppings:,,,,,,,,,,,,,
-King Crab Oscar,,X,X,,,X,,,,,,,X
-Shrimp Topping,,O - butter,,,,X,,,,,,,X
-Jalapeno Onion Jam,,,,X,,,,,,X,,,X
-Hot Lobster Tail,,O - butter,,,,X,,,,,,,X
-Fresh Truffle,,,,,,,,,,,,,
-Peppercorn Crust,,,,,,,,,,,,,
-Zingy Rub,,,,,,,,,,,,,X
-Sauces:,,,,,,,,,,,,,
-Dijonnaise,,,X,,,,,,,,,,
-Bacon Jalapeno Fry Sauce,,,X,,,,,,,,,X,X
-Mignonette,,,,,,,,,,,,,X
-Cocktail Sauce,,,,X,X,,,,,X,,,X
-Raw Horseradish,,,,,,,,,,,,,
-Mustard Cream,,X,X,,,,,,,,,,
-Chili Remoulade,,,X,,,,,,,,,,X
-STK Sauce,,,,,X,,,,,,,,X
-STK Bold Sauce,,,,X,X,,,,,X,,,X
-Au Poivre,,X,,,,,,,,,,,X
-Red Wine Sauce,,X,,,,,,,,,,,X
-Bearnaise,,X,X,,,,,,,,,,X
-Horseradish Cream,,X,X,X,X,,,,,X,,,X
-Chimichurri,,,,,,,,,,,,,X
-Blue Cheese Butter,,X,,,,,,,,,,,X
-Butter Toppers:,,,,,,,,,,,,,
-Truffle Butter,,X,,,X,,,,,,,,
-Lobster Butter,,X,,,,X,,,,,,,X
-Umami Butter,,X,,,X,,,,,,,,X
-Red Wine Finishing Butter,,X,,,,,,,,,,,X
-Desserts:,,,,,,,,,,,,,
-Bag Of Dounuts,,X,X,X,,,,,,,,,
-Chocolate Cake,,X,X,X,,,,factory cc,factory cc,,,,
-Cheesecake,,X,X,X,,,,factory cc,factory cc,,,,
-Apple Pie,,X,X,X,,,,factory cc,factory cc,,,,
-Chocolate Cookie,,X,X,X,,,,,,,,,
-Ice Cream,,X,X,,,,,,,,,,`;
-
-function parseCsv(input: string): string[][] {
-  const rows: string[][] = [];
-  let field = "";
-  let row: string[] = [];
-  let inQuotes = false;
-  const pushField = () => {
-    row.push(field);
-    field = "";
-  };
-  const pushRow = () => {
-    rows.push(row);
-    row = [];
-  };
-  for (let i = 0; i < input.length; i++) {
-    const ch = input[i];
-    if (inQuotes) {
-      if (ch === `"`) {
-        const next = input[i + 1];
-        if (next === `"`) {
-          field += `"`;
-          i++;
-        } else {
-          inQuotes = false;
-        }
-      } else {
-        field += ch;
+/* Auto-generated from data/allergy.csv. Do not edit by hand. */
+export const items = {
+  "items": [
+    {
+      "name": "House Bread Full Setup",
+      "allergens": {
+        "dairy": "O - butter",
+        "gluten": "X",
+        "soy": "X",
+        "allium": "O - blue butter/ chive oil"
       }
-    } else {
-      if (ch === `"`) {
-        inQuotes = true;
-      } else if (ch === ",") {
-        pushField();
-      } else if (ch === "\r") {
-        // skip
-      } else if (ch === "\n") {
-        pushField();
-        pushRow();
-      } else {
-        field += ch;
+    },
+    {
+      "name": "Baby Gem Caesar",
+      "allergens": {
+        "dairy": "O - parmesan / dressing",
+        "egg": "O - dressing",
+        "gluten": "O - croutons",
+        "fish": "O - dressing",
+        "allium": "O - dressing/ chives"
+      }
+    },
+    {
+      "name": "Blue Iceberg",
+      "allergens": {
+        "dairy": "O - dressing / blue cheese",
+        "egg": "O - dressing",
+        "gluten": "O - dressing",
+        "fish": "O - dressing",
+        "soy": "O - dressing",
+        "sesame": "O - dressing",
+        "pork": "O - bacon",
+        "allium": "O - dressing/ chives"
+      }
+    },
+    {
+      "name": "Burrata",
+      "allergens": {
+        "dairy": "X",
+        "gluten": "O - croutons",
+        "allium": "O"
+      }
+    },
+    {
+      "name": "Tuna Tartare",
+      "allergens": {
+        "fryerCC": "taro chips",
+        "gluten": "O - soy emulsion",
+        "fish": "X",
+        "soy": "O - soy emulsion"
+      }
+    },
+    {
+      "name": "Fried Calamari",
+      "allergens": {
+        "fryerCC": "X",
+        "dairy": "X",
+        "egg": "O - garlic aioli",
+        "gluten": "X",
+        "shellfish": "X",
+        "mollusk": "X",
+        "allium": "O"
+      }
+    },
+    {
+      "name": "Lil' Brgs",
+      "allergens": {
+        "dairy": "O - cheese, bun",
+        "egg": "O - special sauce",
+        "gluten": "O - bun",
+        "sesame": "O - bun",
+        "allium": "O - carm. onion, special sauce"
+      }
+    },
+    {
+      "name": "Jumbo Lump Crab Cake",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "shellfish": "X",
+        "sesame": "O - cucumber salad",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Maple Bacon",
+      "allergens": {
+        "dairy": "X",
+        "egg": "O - slaw",
+        "pork": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Cheesesteak Eggrolls",
+      "allergens": {
+        "dairy": "X",
+        "egg": "O - sweet pickle fry sauce / mustard ranch",
+        "gluten": "X",
+        "fish": "O - sweet pickle fry sauce",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Red King Crab",
+      "allergens": {
+        "egg": "O - dijonaise",
+        "shellfish": "X"
+      }
+    },
+    {
+      "name": "Jalapeno Pickled Shrimp Cocktail",
+      "allergens": {
+        "gluten": "O - cocktail sauce",
+        "fish": "O - cocktail sauce",
+        "shellfish": "X",
+        "soy": "O - cocktail sauce",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Ceviche",
+      "allergens": {
+        "fryerCC": "Daily Feature"
+      }
+    },
+    {
+      "name": "STK Pearls",
+      "allergens": {
+        "gluten": "O - cocktail sauce",
+        "fish": "X",
+        "shellfish": "X",
+        "mollusk": "X",
+        "soy": "O - cocktail sauce",
+        "allium": "O - cocktail sauce / mignonette"
+      }
+    },
+    {
+      "name": "Oysters",
+      "allergens": {
+        "gluten": "O - cocktail sauce",
+        "fish": "O - cocktail sauce",
+        "shellfish": "X",
+        "mollusk": "X",
+        "soy": "O - cocktail sauce",
+        "allium": "O - cocktail sauce / mignonette"
+      }
+    },
+    {
+      "name": "Imperia Kaluga Reserve",
+      "allergens": {
+        "egg": "O - egg",
+        "gluten": "O - blinis",
+        "fish": "X",
+        "allium": "O - chives / shallots"
+      }
+    },
+    {
+      "name": "SHELLFISH PLATTER",
+      "allergens": {
+        "dairy": "O - dungeness crab salad",
+        "egg": "O - dijonaise / crab salad",
+        "gluten": "O - cocktail sauce",
+        "fish": "X",
+        "shellfish": "X",
+        "mollusk": "X",
+        "soy": "O - cocktail sauce",
+        "allium": "O - mignonette / marinated clams"
+      }
+    },
+    {
+      "name": "Calamari / Mussels",
+      "allergens": {
+        "shellfish": "X",
+        "mollusk": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Clams",
+      "allergens": {
+        "shellfish": "X",
+        "mollusk": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Ceviche",
+      "allergens": {
+        "fish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Lobster Portion (COLD)",
+      "allergens": {
+        "shellfish": "X"
+      }
+    },
+    {
+      "name": "Pickled Shrimp",
+      "allergens": {
+        "shellfish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Crab Salad",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "shellfish": "X"
+      }
+    },
+    {
+      "name": "Oysters",
+      "allergens": {
+        "shellfish": "X",
+        "mollusk": "X"
+      }
+    },
+    {
+      "name": "Parmesan Truffle Fries",
+      "allergens": {
+        "fryerCC": "X",
+        "dairy": "O - parmesan cheese",
+        "egg": "O - fry sauce",
+        "gluten": "X",
+        "soy": "X",
+        "pork": "O - Fry Sauce",
+        "allium": "O - chives"
+      }
+    },
+    {
+      "name": "Creamed Spinach",
+      "allergens": {
+        "fryerCC": "shallots",
+        "dairy": "X",
+        "gluten": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Yukon Mashed Potatoes",
+      "allergens": {
+        "dairy": "X",
+        "gluten": "O - parmesan crust"
+      }
+    },
+    {
+      "name": "Market Vegetables",
+      "allergens": {
+        "fryerCC": "Daily Feature"
+      }
+    },
+    {
+      "name": "Tater Tots",
+      "allergens": {
+        "fryerCC": "X",
+        "dairy": "X",
+        "egg": "O - Chili Remoulade",
+        "allium": "O - chives"
+      }
+    },
+    {
+      "name": "Sweet Corn Pudding",
+      "allergens": {
+        "dairy": "X",
+        "allium": "O - chives"
+      }
+    },
+    {
+      "name": "Brussels Sprouts",
+      "allergens": {
+        "fryerCC": "X",
+        "pork": "X",
+        "allium": "O - bacon glaze"
+      }
+    },
+    {
+      "name": "Confit Mushrooms",
+      "allergens": {
+        "dairy": "O - cheese",
+        "pork": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Mac And Cheese",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Bacon Mac And Cheese",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "pork": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Lobster Mac And Cheese",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "shellfish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Asparagus",
+      "allergens": {}
+    },
+    {
+      "name": "Mushroom Pot Pie",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "soy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Potato Gratin",
+      "allergens": {
+        "dairy": "X",
+        "gluten": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Maple Rubbed Salmon",
+      "allergens": {
+        "fish": "X",
+        "allium": "O - maple glaze / olive tapenade"
+      }
+    },
+    {
+      "name": "Free Range Chicken",
+      "allergens": {
+        "dairy": "O - vegetables / mustard sauce",
+        "allium": "O - seasonal vegetable"
+      }
+    },
+    {
+      "name": "Braised Beef Short Rib",
+      "allergens": {
+        "fryerCC": "shallots",
+        "dairy": "O - mashed potatoes",
+        "gluten": "O - crispy shallots",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Fish and Chips",
+      "allergens": {
+        "fryerCC": "x",
+        "egg": "O - tartar / coleslaw",
+        "gluten": "X",
+        "fish": "X"
+      }
+    },
+    {
+      "name": "Lobster Linguine",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "shellfish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Mushroom Tagliatelle",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Miso Glazed Sea Bass",
+      "allergens": {
+        "fryerCC": "crispy shallots",
+        "dairy": "O - crispy shallots",
+        "gluten": "X",
+        "fish": "X",
+        "soy": "X",
+        "sesame": "O - togarashi",
+        "allium": "O - crispy shallots"
+      }
+    },
+    {
+      "name": "Roasted Lamb Rack",
+      "allergens": {
+        "dairy": "O - butter",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "King Crab Oscar",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "shellfish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Shrimp Topping",
+      "allergens": {
+        "dairy": "O - butter",
+        "shellfish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Jalapeno Onion Jam",
+      "allergens": {
+        "gluten": "X",
+        "soy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Hot Lobster Tail",
+      "allergens": {
+        "dairy": "O - butter",
+        "shellfish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Fresh Truffle",
+      "allergens": {}
+    },
+    {
+      "name": "Peppercorn Crust",
+      "allergens": {}
+    },
+    {
+      "name": "Zingy Rub",
+      "allergens": {
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Dijonnaise",
+      "allergens": {
+        "egg": "X"
+      }
+    },
+    {
+      "name": "Bacon Jalapeno Fry Sauce",
+      "allergens": {
+        "egg": "X",
+        "pork": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Mignonette",
+      "allergens": {
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Cocktail Sauce",
+      "allergens": {
+        "gluten": "X",
+        "fish": "X",
+        "soy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Raw Horseradish",
+      "allergens": {}
+    },
+    {
+      "name": "Mustard Cream",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X"
+      }
+    },
+    {
+      "name": "Chili Remoulade",
+      "allergens": {
+        "egg": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "STK Sauce",
+      "allergens": {
+        "fish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "STK Bold Sauce",
+      "allergens": {
+        "gluten": "X",
+        "fish": "X",
+        "soy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Au Poivre",
+      "allergens": {
+        "dairy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Red Wine Sauce",
+      "allergens": {
+        "dairy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Bearnaise",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Horseradish Cream",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "fish": "X",
+        "soy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Chimichurri",
+      "allergens": {
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Blue Cheese Butter",
+      "allergens": {
+        "dairy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Truffle Butter",
+      "allergens": {
+        "dairy": "X",
+        "fish": "X"
+      }
+    },
+    {
+      "name": "Lobster Butter",
+      "allergens": {
+        "dairy": "X",
+        "shellfish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Umami Butter",
+      "allergens": {
+        "dairy": "X",
+        "fish": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Red Wine Finishing Butter",
+      "allergens": {
+        "dairy": "X",
+        "allium": "X"
+      }
+    },
+    {
+      "name": "Bag Of Dounuts",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X"
+      }
+    },
+    {
+      "name": "Chocolate Cake",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "treeNuts": "factory cc",
+        "peanuts": "factory cc"
+      }
+    },
+    {
+      "name": "Cheesecake",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "treeNuts": "factory cc",
+        "peanuts": "factory cc"
+      }
+    },
+    {
+      "name": "Apple Pie",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X",
+        "treeNuts": "factory cc",
+        "peanuts": "factory cc"
+      }
+    },
+    {
+      "name": "Chocolate Cookie",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X",
+        "gluten": "X"
+      }
+    },
+    {
+      "name": "Ice Cream",
+      "allergens": {
+        "dairy": "X",
+        "egg": "X"
       }
     }
-  }
-  // push last field/row if needed
-  if (field.length > 0 || row.length > 0) {
-    pushField();
-    pushRow();
-  }
-  return rows;
-}
-
-function buildItems(): ItemsExport {
-  const rows = parseCsv(csv);
-  const items: MenuItem[] = [];
-
-  const colToKey: Record<number, AllergenKey> = {
-    1: "fryerCC",
-    2: "dairy",
-    3: "egg",
-    4: "gluten",
-    5: "fish",
-    6: "shellfish",
-    7: "mollusk",
-    8: "treeNuts",
-    9: "peanuts",
-    10: "soy",
-    11: "sesame",
-    12: "pork",
-    13: "allium",
-  };
-
-  for (let r = 0; r < rows.length; r++) {
-    const cols = rows[r];
-    if (!cols || cols.length === 0) continue;
-    const name = (cols[0] || "").trim();
-    if (!name) continue;
-    if (name === "Column1") continue;
-    if (name.endsWith(":")) continue; // category rows
-    if (name.startsWith("STK Dinner Menu Item")) continue; // header blob
-
-    const allergens: Partial<Record<AllergenKey, string>> = {};
-    for (const [indexStr, key] of Object.entries(colToKey)) {
-      const idx = Number(indexStr);
-      const raw = cols[idx] ?? "";
-      const val = raw.trim();
-      if (val) {
-        allergens[key] = val;
-      }
-    }
-
-    items.push({ name, allergens });
-  }
-
-  return { items };
-}
-
-export const items: ItemsExport = buildItems();
-
-
-
+  ]
+} as const;
